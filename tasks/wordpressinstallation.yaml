@@ -1,0 +1,21 @@
+- name: downloaded Wordpress
+  when: ansible_hostname == "app"
+  get_url:
+    url: "http://wordpress.org/latest.tar.gz"
+    dest: /tmp/
+
+- name: Unarchive Worpdress 
+  when: ansible_hostname == "app"
+  unarchive:
+    src: /tmp/wordpress-5.5.1.tar.gz
+    dest: /tmp
+    remote_src: yes
+
+- name: copy Wordpress Files
+  when: ansible_hostname == "app"
+  copy:
+    src: /tmp/wordpress/ 
+    dest: /var/www/html
+    owner: apache
+    group: apache   
+    remote_src: yes

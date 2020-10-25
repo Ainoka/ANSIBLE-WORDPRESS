@@ -1,0 +1,12 @@
+- name: Apache Installation
+  when: ansible_hostname == "app"
+  yum:
+    name: httpd
+    state: latest
+
+- name: Stert& Enable Apache
+  when: ansible_hostname == "app"
+  systemd:
+    name: httpd
+    state: started
+    enabled: yes
