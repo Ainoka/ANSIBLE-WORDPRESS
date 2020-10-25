@@ -1,0 +1,31 @@
+- name: Sets the root password
+  when:
+    - db_installation.changed
+    - ansible_hostname == "mysql"
+  mysql_user:
+    login_user: 'root'
+    login_host: 'localhost'
+    name: 'root'
+    password: "{{ mysql_root_password }}"
+    state: present
+
+- name: Remote Annonymous Users
+  when:
+    - db_installation.changed
+    - ansible_hostname == "mysql"
+  mysql_user:
+    login_user: 'root'
+    login_password: "{{ mysql_root_password }}"
+    name: ''
+    host_all: yes
+    state: absent
+
+- name: Remove test database and access to it
+  when:
+    - db_installation.changed
+    - ansible_hostname == "mysql"
+  mysql_db:
+    login_user: 'root'
+    login_password: "{{ mysql_root_password }}"
+    db: test
+    state: absent

@@ -4,6 +4,8 @@
     name:
       - mariadb
       - mariadb-server
+      - MySQL-python
+  register: db_installation
 
 - name: Start& Enable MariaDB
   when: ansible_hostname == "mysql"

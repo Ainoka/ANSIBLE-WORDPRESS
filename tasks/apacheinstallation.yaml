@@ -4,7 +4,7 @@
     name: httpd
     state: latest
 
-- name: Stert& Enable Apache
+- name: Start & Enable Apache
   when: ansible_hostname == "app"
   systemd:
     name: httpd
